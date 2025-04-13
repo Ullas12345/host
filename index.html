@@ -1,224 +1,656 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 
 <head>
+  <script>
+    document.addEventListener("contextmenu", (event) => event.preventDefault());
+    document.addEventListener("keydown", (event) => {
+      if (event.ctrlKey && ["u", "s", "i", "j"].includes(event.key.toLowerCase()) ||
+        event.key === "F12") {
+        event.preventDefault();
+      }
+    });
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BRAINIAC ACADEMIC</title>
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+  <title>Login & Online Exam</title>
   <style>
-    * {
+    @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
+
+    /* Apply Hind Siliguri font to body */
+    body {
       font-family: "Hind Siliguri", sans-serif;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background-color: white;
-      color: #f44336;
-      position: relative;
-    }
-
-    /* Fixed Header */
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
+      background-color: #f4f4f4;
       display: flex;
-      align-items: center;
       justify-content: center;
-      background: white;
-      padding: 10px 20px;
-      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-    }
-
-    /* Menu Button */
-    .menu-bar {
-      position: absolute;
-      left: 20px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      z-index: 1100;
-    }
-
-    .menu-bar div {
-      width: 30px;
-      height: 4px;
-      background-color: #f44336;
-      transition: 0.3s;
-    }
-
-    /* Site Name */
-    .site-name {
-      font-size: 24px;
-      font-style: italic;
-      font-weight: bold;
-      text-align: center;
-      line-height: 1.1;
-    }
-
-    .site-name span {
-      display: block;
-    }
-
-    /* Sidebar Menu */
-    .menu {
-      position: fixed;
-      top: 0;
-      left: -250px;
-      width: 250px;
-      height: 100%;
-      background-color: white;
-      padding-top: 50px;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
-      transition: 0.3s;
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      z-index: 1200;
+      height: 100vh;
     }
 
-    /* Close "X" Button */
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 35px;
-      color: #f44336;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-      user-select: none;
-    }
-
-    .close-btn:hover {
-      transform: scale(1.2);
-    }
-
-    /* Menu Items */
-    .menu a {
-      display: block;
-      width: 200px;
-      padding: 12px;
-      font-size: 18px;
-      color: #f44336;
+    .login-container {
       background-color: white;
+      padding: 50px;
+      border-radius: 00px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
       text-align: center;
-      text-decoration: none;
-      border: 1px solid #f44336;
-      margin: 8px 0;
-      border-radius: 5px;
-      transition: 0.3s;
-      white-space: nowrap;
+      width: 300px;
     }
 
-    .menu a:hover {
-      background-color: #f44336;
-      color: white;
-    }
-
-    /* Centered Card */
-    .container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-      max-width: 500px;
-      width: 90%;
-      text-align: left;
-      margin-top: 350px;
-      /* Added margin to avoid header overlap */
-    }
-
-    h1 {
-      font-weight: bold;
+    h2 {
       color: #f44336;
     }
 
-    p {
-      font-weight: bold;
-      font-size: 18px;
-      color: #555;
+    input {
+      font-family: "Hind Siliguri", sans-serif;
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
 
-    .button {
-      display: inline-block;
-      padding: 10px 20px;
+    button {
+      font-family: "Hind Siliguri", sans-serif;
+      padding: 10px;
+      width: 100%;
       background-color: #f44336;
       color: white;
-      text-decoration: none;
-      font-weight: bold;
+      border: none;
       border-radius: 5px;
+      cursor: pointer;
       font-size: 16px;
-      text-align: center;
     }
 
-    .button:hover {
+    button:hover {
       background-color: #d32f2f;
     }
 
-    .button-container {
+    .error {
+      font-family: "Hind Siliguri", sans-serif;
+      color: red;
+      margin-top: 10px;
+    }
+
+    .container {
+      font-family: "Hind Siliguri", sans-serif;
+      width: 80%;
+      margin: auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: red;
+    }
+
+    #timer {
+      font-size: 20px;
+      color: red;
+      margin-bottom: 5px;
+      font-weight: normal;
+    }
+
+    #exam-info {
+      font-size: 16px;
+      color: black;
+      margin-bottom: 20px;
+    }
+
+    .question-container {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .question-label {
+      font-weight: bold;
+    }
+
+    .option {
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 5px 5px;
+      border-radius: 5px;
+    }
+
+    .circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #f44336;
+      margin-right: 10px;
       display: flex;
       justify-content: center;
-      margin-top: 15px;
+      align-items: center;
+      color: #f44336;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .selected .circle {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .correct-text {
+      color: green !important;
+    }
+
+    .incorrect-text {
+      color: red !important;
+    }
+
+    .unattempted-text {
+      color: orange !important;
+    }
+
+    .question-card {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      overflow: auto;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin: 5px;
+      border: 2px solid black;
+      background-color: white;
+      cursor: pointer;
+    }
+
+    .correct-card {
+      background-color: green !important;
+      color: white;
+    }
+
+    .incorrect-card {
+      background-color: red !important;
+      color: white;
+    }
+
+    .unattempted-card {
+      background-color: orange !important;
+      color: white;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #d32f2f;
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      text-align: center;
+      display: none;
+    }
+
+    .popup-header {
+      background-color: red;
+      color: white;
+      padding: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .popup-body {
+      padding: 15px;
+    }
+
+    .popup-body p {
+      margin: 10px 0;
+    }
+
+    .popup-close {
+      background-color: red;
+      color: white;
+      padding: 8px 15px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .popup-close:hover {
+      background-color: #d32f2f;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Sidebar Menu -->
-  <div class="menu" id="sideMenu">
-    <span class="close-btn" onclick="toggleMenu()">&times;</span>
-    <h2> মেনুবার</h2>
-    <a href="ullas-1.html">ডেইলি টেস্ট</a>
-    <a href="#">উইকলি টেস্ট</a>
-    <a href="#">পেপার ফাইনাল</a>
-    <a href="#">সাবজেক্ট ফাইনাল</a>
-    <a href="#">আমাদের সম্পর্কে</a>
+  <div class="login-container"
+    style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center; width: 300px;">
+    <h1>লগইন করো</h1>
+    <input type="text" id="userID" placeholder="ইউজার নেম" required
+      style="width: 80%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+    <input type="password" id="password" placeholder="পাসওয়ার্ড" required
+      style="width: 80%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+
+    <button onclick="validateLogin()"
+      style="padding: 15px 30px;  background-color: #f44336; color: white; border: none; cursor: pointer; font-size: 18px; font-weight: bold; border-radius: 5px; margin-top: 20px; width: 50%; transition: background-color 0.3s ease;"
+      onmouseover="this.style.backgroundColor='#d32f2f'" onmouseout="this.style.backgroundColor='#f44336'">লগিন</button>
+
+    <p class="error" id="errorMessage"></p>
   </div>
 
-  <!-- Header (Fixed at the Top) -->
-  <div class="header">
-    <div class="menu-bar" onclick="toggleMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
+
+  <div class="container" style="display: none;" id="examContainer">
+    <h1>বায়োলজি এক্স্যাম</h1>
+    <div id="timer">০১ মিনিট ০০ সেকেন্ড</div>
+    <div id="exam-info">পূর্ণ নম্বরঃ ১০০ </div>
+
+    <div id="exam">
+      <!-- Questions will be generated dynamically -->
     </div>
-    <div class="site-name">
-      <span>BRAINIAC</span>
-      <span>ACADEMIC</span>
-    </div>
+
+    <button id="submitBtn"
+      style="padding: 15px 30px; background-color: #f44336; color: white; border: none; cursor: pointer; font-size: 18px; font-weight: bold; border-radius: 10px; margin-top: 20px; width: 50%; transition: background-color 0.3s ease;"
+      onmouseover="this.style.backgroundColor='#d32f2f'"
+      onmouseout="this.style.backgroundColor='#f44336'">সাবমিট</button>
+
   </div>
 
-  <!-- Centered Content -->
-  <div class="container">
-    <h2>আসসালামু আলাইকুম!</h2>
-    <p>মেডিকেল ভর্তি পরীক্ষাসহ যেকোনো ভর্তি পরীক্ষায় ভালো করতে পরীক্ষা দেওয়ার কোনো গুরুত্ব নেই।
-      আর তুমি যদি চাও, মেডিকেল ভর্তি পরীক্ষায় সর্বোচ্চ কমনের নিশ্চয়তা, তাহলে এখুনি শুরু করে দাও এক্স্যাম দেওয়া!</p>
-    <div class="button-container">
-      <a href="#" class="button">শুরু করো</a>
+  <div class="popup" id="scorePopup">
+    <div class="popup-header">আপনার স্কোর</div>
+    <div class="popup-body">
+      <p><strong>মোট প্রশ্ন:</strong> <span id="totalQuestions"></span></p>
+      <p><strong>উত্তর দিয়েছেন:</strong> <span style="color: #089c46;" id="answered"></span></p>
+      <p><strong>ভুল উত্তর:</strong> <span style="color: #d32f2f;" id="wrongAnswers"></span></p>
+      <p><strong>অনুত্তরিত:</strong> <span style="color: #0400fc;" id="unanswered"></span></p>
+      <p><strong>আপনার চূড়ান্ত স্কোর:</strong></p>
+      <h2 style="color: #d32f2f;"><span id="finalScore"></span></h2>
+
+      <h3 style="font-family: 'Hind Siliguri', sans-serif;">
+        <span style="color: black;">সলিউশন পেতেঃ</span>
+        <a href="your-link-here" style="color: #d32f2f;">এখানে ক্লিক করো</a>
+      </h3>
+
+
+      <button class="popup-close" onclick="closePopup()">Close</button>
     </div>
   </div>
 
   <script>
-    function toggleMenu() {
-      const menu = document.getElementById('sideMenu');
-      if (menu.style.left === '0px') {
-        menu.style.left = '-250px';
+    const users = [
+      { id: "ullas", pass: "ullas" },
+      { id: "mahbur", pass: "mahbur" },
+      { id: "safayat", pass: "safayat123" }
+    ];
+
+    function validateLogin() {
+      let userID = document.getElementById("userID").value;
+      let password = document.getElementById("password").value;
+      let errorMessage = document.getElementById("errorMessage");
+
+      let isValid = users.some(user => user.id === userID && user.pass === password);
+
+      if (isValid) {
+        sessionStorage.setItem("isLoggedIn", "true");
+        sessionStorage.setItem("userID", userID); // Save userID here
+        document.querySelector(".login-container").style.display = "none";
+        document.getElementById("examContainer").style.display = "block";
+        startTimer();
+        generateQuestions();
       } else {
-        menu.style.left = '0px';
+        errorMessage.innerText = "ভুল আইডি বা পাসওয়ার্ড!";
       }
+    }
+
+    let timeLeft = 60;
+    const timerElement = document.getElementById("timer");
+    let timerInterval;
+
+    function updateTimer() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerElement.innerText = `${toBengaliNumber(minutes)} মিনিট ${toBengaliNumber(seconds)} সেকেন্ড`;
+
+      if (timeLeft > 0) {
+        timeLeft--;
+      } else {
+        stopTimer();
+        document.getElementById("submitBtn").click();
+      }
+    }
+
+    function startTimer() {
+      timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+    }
+
+    function toBengaliNumber(num) {
+      const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      let numStr = num.toString();
+
+      let isNegative = num < 0;
+      if (isNegative) {
+        numStr = numStr.substring(1);
+      }
+
+      if (numStr.includes('.')) {
+        let [integerPart, decimalPart] = numStr.split('.');
+        let integerBengali = integerPart.split('').map(digit => bengaliDigits[parseInt(digit)]).join('');
+        let decimalBengali = decimalPart.split('').map(digit => bengaliDigits[parseInt(digit)]).join('');
+        return (isNegative ? '−' : '') + integerBengali + '.' + decimalBengali;
+      } else {
+        let integerBengali = numStr.split('').map(digit => bengaliDigits[parseInt(digit)]).join('');
+        return (isNegative ? '−' : '') + integerBengali;
+      }
+    }
+
+    const questions = [
+      {
+        "id": 1,
+        "question": "প্রজাপতি এর প্রতিসাম্যতা কোন ধরনের?",
+        "options": {
+          "A": "অরীয়",
+          "B": "দ্বিঅরীয়",
+          "C": "অপ্রতিসাম্য",
+          "D": "দ্বিপার্শ্বীয়"
+        },
+        "correct": "A"
+      },
+      {
+        "id": 2,
+        "question": "নিচের কোনটি দ্বিস্তরী?",
+        "options": {
+          "A": "ফিতা কৃমি",
+          "B": "হাইড্রা",
+          "C": "জোঁক",
+          "D": "ম্যালেরিয়ার জীবাণু"
+        },
+        "correct": "A"
+      },
+      {
+        "id": 3,
+        "question": "সিলোমহীন পর্ব কোনটি?",
+        "options": {
+          "A": "Nematoda",
+          "B": "Fasciola hepatica",
+          "C": "Annelida",
+          "D": "Chordata"
+        },
+        "correct": "A"
+      },
+      {
+        "id": 4,
+        "question": "শ্রেণিবিন্যাসবিদ্যার জনক কে?",
+        "options": {
+          "A": "Carolus Linnaeus",
+          "B": "George Benthum",
+          "C": "Theophrastus",
+          "D": "de Candolle"
+        },
+        "correct": "A"
+      },
+      {
+        "id": 5,
+        "question": "প্রাণিদেহে সদৃশ একাধিক অংশের রৈখিক বা অনুদৈর্ঘ্যক পুনরাবৃত্তিকে বলে-",
+        "options": {
+          "A": "প্রান্তিকতা",
+          "B": "খণ্ডায়ন",
+          "C": "প্রতিসাম্যতা",
+          "D": "মেটামেরিজম"
+        },
+        "correct": "A"
+      },
+      {
+        "id": 6,
+        "question": "সিলোমযুক্ত প্রাণী কোনটি?",
+        "options": {
+          "A": "স্পঞ্জ",
+          "B": "Fasciola hepatica",
+          "C": "জেলিফিস",
+          "D": "Chordata"
+        },
+        "correct": "A"
+      },
+      {
+        "id": 7,
+        "question": "নিচের কোনটি দ্বিঅরীয় প্রতিসাম্য প্রাণির উদাহরণ?",
+        "options": {
+          "A": "হাইড্রা",
+          "B": "জেলিফিস",
+          "C": "টিনোফেরা",
+          "D": "সী অ্যানিমন"
+        },
+        "correct": "A"
+      },
+      {
+        "id": 8,
+        "question": "স্যুডোসিলোমেট/ভ্রান্ত সিলোমযুক্ত প্রাণির পর্ব কোনটি?",
+        "options": {
+          "A": "Platyhelminthes",
+          "B": "Nematoda",
+          "C": "Arthropoda",
+          "D": "Cnidaria"
+        },
+        "correct": "A"
+      },
+      {
+        "id": 9,
+        "question": "মরুভূমি, বনভূমি, তৃণভূমি ইত্যাদি কোন ধরনের বৈচিত্র্য?",
+        "options": {
+          "A": "বাস্তুতান্ত্রিক",
+          "B": "জিনগত",
+          "C": "প্রজাতিগত",
+          "D": "প্রাকৃতিক"
+        },
+        "correct": "A"
+      },
+      {
+        "id": 10,
+        "question": "অক্ষের সাথে সামঞ্জস্য রেখে প্রাণিদেহের বিভিন্ন অংশের বিভাজন প্রকৃতিকে কী বলে?",
+        "options": {
+          "A": "প্রান্তিকতা",
+          "B": "প্রতিসাম্যতা",
+          "C": "খণ্ডায়ন",
+          "D": "মেটামেরিজম"
+        },
+        "correct": "A"
+      },
+      {
+        "id": 11,
+        "question": "শ্রেণিবিন্যাস স্তরের সর্বনিম্ন ধাপ কোনটি?",
+        "options": {
+          "A": "Order",
+          "B": "Family",
+          "C": "Genus",
+          "D": "Species"
+        },
+        "correct": "A"
+      },
+      {
+        "id": 12,
+        "question": "পৃথিবীর আদিপ্রাণী যে পর্বের অন্তর্ভুক্ত তা হলো-",
+        "options": {
+          "A": "Porifera",
+          "B": "Cnidaria",
+          "C": "Annelida",
+          "D": "Nematoda"
+        },
+        "correct": "A"
+      },
+      {
+        "id": 13,
+        "question": "বাংলাদেশ কোন জীববৈচিত্র্য হট-স্পটের অন্তর্গত?",
+        "options": {
+          "A": "মালয়",
+          "B": "ইন্দো-বার্মা",
+          "C": "ইন্ডিয়ান",
+          "D": "হিমালয়ান"
+        },
+        "correct": "A"
+      },
+      {
+        "id": 14,
+        "question": "নিচের কোন পর্বের প্রাণী কোষীয় সংগঠন মাত্রার?",
+        "options": {
+          "A": "Porifera",
+          "B": "Cnidaria",
+          "C": "Annelida",
+          "D": "Nematoda"
+        },
+        "correct": "A"
+      },
+      {
+        "id": 15,
+        "question": "প্রাণির তিনটি ভ্রূণীয় স্তর আবিষ্কার করেন কোন বিজ্ঞানী?",
+        "options": {
+          "A": "Carolus Linnaeus",
+          "B": "H. Candolle",
+          "C": "G. Benthum",
+          "D": "Theophrastus"
+        },
+        "correct": "A"
+      },
+      {
+        "id": 16,
+        "question": "প্রাণির তিনটি ভ্রূণীয় স্তর আবিষ্কার করেন কোন বিজ্ঞানী?",
+        "options": {
+          "A": "Carolus Linnaeus",
+          "B": "H. Candolle",
+          "C": "G. Benthum",
+          "D": "Theophrastus"
+        },
+        "correct": "A"
+      }
+
+    ];
+
+    function generateQuestions() {
+      const examContainer = document.getElementById('exam');
+      questions.forEach(question => {
+        const questionDiv = document.createElement('div');
+        questionDiv.classList.add('question-container');
+        questionDiv.setAttribute('data-question', question.id);
+        questionDiv.setAttribute('data-correct', question.correct);
+
+        let optionsHTML = '';
+        for (let option in question.options) {
+          optionsHTML += `
+            <label class="option" data-option="${option}">
+              <div class="circle">${option}</div>
+              <span class="option-text">${question.options[option]}</span>
+            </label>
+          `;
+        }
+
+        questionDiv.innerHTML = `
+          <p class="question-label">${question.id}. ${question.question}</p>
+          <div class="options">
+            ${optionsHTML}
+          </div>
+        `;
+        examContainer.appendChild(questionDiv);
+      });
+
+      document.querySelectorAll('.option').forEach(option => {
+        option.addEventListener('click', function () {
+          let parent = this.closest('.question-container');
+          parent.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
+          this.classList.add('selected');
+        });
+      });
+    }
+
+    document.getElementById("submitBtn").addEventListener("click", function () {
+      stopTimer();
+      let score = 0, total = questions.length, answered = 0, wrong = 0, unanswered = 0;
+      let userID = sessionStorage.getItem("userID"); // Get saved userID
+
+      document.querySelectorAll('.question-container').forEach((question, index) => {
+        let correctAnswer = question.getAttribute('data-correct');
+        let selectedOption = question.querySelector('.option.selected');
+
+        if (selectedOption) {
+          answered++;
+          let chosenAnswer = selectedOption.getAttribute('data-option');
+          if (chosenAnswer === correctAnswer) {
+            selectedOption.querySelector('.option-text').classList.add('correct-text');
+            score += 1;
+          } else {
+            selectedOption.querySelector('.option-text').classList.add('incorrect-text');
+            question.querySelector(`[data-option="${correctAnswer}"] .option-text`).classList.add('correct-text');
+            score -= 0.25;
+            wrong++;
+          }
+        } else {
+          question.querySelector(`[data-option="${correctAnswer}"] .option-text`).classList.add('unattempted-text');
+          unanswered++;
+        }
+      });
+
+      // Send score to Google Apps Script
+      fetch('https://script.google.com/macros/s/AKfycbw8Ku_JMf6C5dH-tjpvU2qngc1symBp3L6J2fMOQuAVbPOyo-RfxvYnVn_QLLckqN8V/exec', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userID: userID,
+          score: score.toFixed(2),
+        }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Score saved:', data);
+        })
+        .catch(error => {
+          console.error('Error saving score:', error);
+        });
+
+      // Update popup
+      document.getElementById("totalQuestions").innerText = toBengaliNumber(total);
+      document.getElementById("answered").innerText = toBengaliNumber(answered);
+      document.getElementById("wrongAnswers").innerText = toBengaliNumber(wrong);
+      document.getElementById("unanswered").innerText = toBengaliNumber(unanswered);
+      document.getElementById("finalScore").innerText = toBengaliNumber(score.toFixed(2));
+
+      document.getElementById("scorePopup").style.display = "block";
+    });
+
+    function closePopup() {
+      document.getElementById("scorePopup").style.display = "none";
     }
   </script>
 
